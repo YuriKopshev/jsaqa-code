@@ -5,7 +5,7 @@ const { expect } = require("@playwright/test");
 //positive test
 (async () => {
   const browser = await chromium.launch({
-    headless: false,
+   // headless: false,
     slowMo: 5000,
   });
   const page = await browser.newPage();
@@ -17,13 +17,14 @@ const { expect } = require("@playwright/test");
   //await page.click('text=Войти');
   await page.click('[data-testid="login-submit-btn"]');
   await expect(page).toHaveURL("https://netology.ru/profile");
+  await page.screenshot({ path: 'C:\\LearnProjects\\JSHWAutoTesting\\jsaqa-code\\7.3\\playwright\\scrennshots', fullPage: true });
   await browser.close();
 })();
 
 //negative test
 (async () => {
   const browser = await chromium.launch({
-    headless: false,
+    //headless: false,
     slowMo: 5000,
   });
 
@@ -36,5 +37,6 @@ const { expect } = require("@playwright/test");
   await expect(
       page.locator(".src-components-ui-Form-Hint--hint--AcxqM")
   ).toBeVisible();
+  await page.screenshot({ path: 'C:\\LearnProjects\\JSHWAutoTesting\\jsaqa-code\\7.3\\playwright\\scrennshots', fullPage: true });
   await browser.close();
 })();
