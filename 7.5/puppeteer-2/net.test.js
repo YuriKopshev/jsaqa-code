@@ -1,5 +1,5 @@
+//const { expect } = require("chai");
 const { clickElement, putText, getText } = require("./lib/commands.js");
-const { generateName } = require("./lib/util.js");
 
 let page;
 
@@ -12,44 +12,34 @@ afterEach(() => {
   page.close();
 });
 
-describe("Netology.ru tests", () => {
+describe("qamid.tmweb.ru tests", () => {
   beforeEach(async () => {
     page = await browser.newPage();
-    await page.goto("https://netology.ru");
+    await page.goto("http://qamid.tmweb.ru/client/index.php");
   });
 
-  test("The first test'", async () => {
+  test("The title test'", async () => {
     const title = await page.title();
-    console.log("Page title: " + title);
-    await clickElement(page, "header a + a");
-    const title2 = await page.title();
-    console.log("Page title: " + title2);
-    const pageList = await browser.newPage();
-    await pageList.goto("https://netology.ru/navigation");
-    await pageList.waitForSelector("h1");
+   expect(title).toEqual("ИдёмВКино")
   });
 
-  test("The first link text 'Медиа Нетологии'", async () => {
-    const actual = await getText(page, "header a + a");
-    expect(actual).toContain("Медиа Нетологии");
+  test("Logan film reserve ticket test", async () => {
+   await clickElement(page,"[data-seance-id='139']");
+   await clickElement(page,"div.buying-scheme > div.buying-scheme__wrapper > div:nth-child(1) > span:nth-child(3)");
+   await clickElement(page,".acceptin-button");
+   await clickElement(page,".acceptin-button");
+   const actual = await getText(page,"div > p:nth-child(8)");
+   expect(actual).toEqual("Приятного просмотра!");
   });
 
-  test("The first link leads on 'Медиа' page", async () => {
-    await clickElement(page, "header a + a");
-    const actual = await getText(page, ".logo__media");
-    await expect(actual).toContain("Медиа");
-  });
+  test("Фильм 3 film reserve VIP - ticket test", async () => {
+    await clickElement(page,"[data-time-stamp='1662930000']");
+    await clickElement(page,"[data-seance-id='94']");
+    await clickElement(page,"div.buying-scheme__wrapper > div:nth-child(3) > span.buying-scheme__chair.buying-scheme__chair_vip");
+    await clickElement(page,".acceptin-button");
+    await clickElement(page,".acceptin-button");
+    const actual = await getText(page,"div > p:nth-child(8)");
+    expect(actual).toEqual("Приятного просмотра!");
+   });
 });
 
-test("Should look for a course", async () => {
-  await page.goto("https://netology.ru/navigation");
-  await putText(page, "input", "тестировщик");
-  const actual = await page.$eval("a[data-name]", (link) => link.textContent);
-  const expected = "Тестировщик ПО";
-  expect(actual).toContain(expected);
-});
-
-test("Should show warning if login is not email", async () => {
-  await page.goto("https://netology.ru/?modal=sign_in");
-  await putText(page, 'input[type="email"]', generateName(5));
-});
