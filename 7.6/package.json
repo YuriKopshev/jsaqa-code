@@ -1,14 +1,20 @@
 {
   "name": "cypress-test",
   "version": "1.0.0",
-  "description": "first tests with Cypress",
+  "description": "Tests for booksApp with Cypress",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "cypress_laptop": "cypress open --config-file cypresslaptop.config.js",
+    "cypress_mobile": "cypress open --config-file cypressmobile.env.config.js",   
+    "test_headlessEdge": "cypress run --headless --browser edge",
+    "test_headlessFox": "cypress run --headless --browser firefox",  
+    "test_headEdge": "cypress run --headed --browser edge", 
+    "test_headFox": "cypress run --headed --browser firefox" 
   },
-  "author": "OM",
+  "author": "Yuri Kopshev",
   "license": "ISC",
+
   "dependencies": {
-    "cypress": "^8.3.0"
+    "cypress": "^10.4.0"
   }
 }

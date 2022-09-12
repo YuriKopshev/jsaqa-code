@@ -26,7 +26,23 @@
 
 Cypress.Commands.add("login", (login, password) => {
   cy.contains("Log in").click();
+  if(login){
   cy.get("#mail").type(login);
+  }
+  if(password){
   cy.get("#pass").type(password);
+  }
   cy.contains("Submit").click();
 });
+
+Cypress.Commands.add("addNewBook",(title,author)=>{
+  cy.wait(3000);
+  cy.get('.text-light > .ml-2').click();
+  cy.get('.p-0 > .btn').click();
+  cy.get('#title').click();
+  cy.get('#title').type(title);
+  cy.get('#authors').click();
+  cy.get('#authors').type(author);
+  cy.get('#favorite').check();
+  cy.get('form > .ml-2').click();
+})
