@@ -39,7 +39,7 @@ it("Should delete last added book from favorite", () =>{
   cy.get('.card-title').should("not.exist","Война миров");
 });
 
-it("Should upload and download book from favorite", () =>{
+it.only("Should upload and download book from favorite", () =>{
   cy.visit("/booksNode");
   cy.login("test@test.com", "test");
   cy.wait(3000);
@@ -55,8 +55,7 @@ it("Should upload and download book from favorite", () =>{
   cy.get('h4').click();
   cy.get('#root > div > div > a:last-child').click();
   cy.get('.col-md-7 > .btn');
-
-  //файл загружается(это видно в окнге зашрузке)  но как дальше проверить(какой то assert применить???) окно загрузки, я не нашел!!!!
- // Помогите разобраться!!!
+  cy.readFile('cypress\\Downloads\\download.docx')
+  .should('exist')
 });
 
