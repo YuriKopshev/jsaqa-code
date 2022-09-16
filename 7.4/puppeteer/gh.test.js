@@ -1,8 +1,15 @@
 let page;
 
+beforeEach(async () => {
+  page = await browser.newPage();
+});
+
+afterEach(() => {
+  page.close();
+});
+
 describe("Github page tests", () => {
   beforeEach(async () => {
-    page = await browser.newPage();
     await page.goto("https://github.com/team", { timeout: 6000 });
   });
   test("The h1 header content", async () => {
@@ -28,14 +35,10 @@ describe("Github page tests", () => {
     const actual = await page.$eval(btnSelector, (link) => link.textContent);
     expect(actual).toContain("Sign up for free");
   });
-  afterEach(() => {
-    page.close();
-  });
 });
 
 describe("Githab marketplaceTest", () => {
   beforeEach(async () => {
-    page = await browser.newPage();
     await page.goto("https://github.com/marketplace", { timeout: 6000 });
   });
   test("The h1 header content", async () => {
@@ -61,8 +64,5 @@ describe("Githab marketplaceTest", () => {
     });
     const actual = await page.$eval("h1.h2", (link) => link.textContent);
     expect(actual).toContain("Free");
-  });
-  afterEach(() => {
-    page.close();
   });
 });
