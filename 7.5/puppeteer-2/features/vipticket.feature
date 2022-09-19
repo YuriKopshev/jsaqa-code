@@ -1,10 +1,10 @@
 Feature: Reserve VIP ticket on Film 3
     Scenario: Should reserve VIP ticket
-        Given user is on start page
+        Given user is on page
         When user click on needs date 
         When user click on needs hall
-        When user set place in VIP hall
-        When user click on reserve VIP place
+        When user set place "div.buying-scheme__wrapper > div:nth-child(3) > span.buying-scheme__chair.buying-scheme__chair_vip" in VIP hall
+        When user click on submit button
         And user sees next text "Вы выбрали билеты:"
-        When user click on getCode and get QRcode
+        And user click on submit button
         Then user sees next message "Приятного просмотра!"
