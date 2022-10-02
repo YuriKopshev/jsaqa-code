@@ -42,23 +42,21 @@ it("Book ticket film name from admin",()=>{
   cy.get('[type="email"]').type(goodAdmin.login);
   cy.get(('[for="pwd"]')).type(goodAdmin.password);
   cy.get('[type="submit"]').click();
-  // cy.get('div.conf-step__seances > div:nth-child(4) > div > div > p.conf-step__seances-movie-title').
-  // then(($el) => $el.textContent).should('have.text','Логан');
-
-   cy.get('div.conf-step__seances > div:nth-child(4) > div > div > p.conf-step__seances-movie-title').invoke('text').as('filmname');
-  //Как сохрнаить название фильма с админки в переменную чтобы потом проверить на основной странице????
-  //я хочу чтобы Логан был в перемнной....
-
-  cy.visit("qamid.tmweb.ru");
-  cy.get('h2.movie__title').first().should('have.text',this.filmname); 
-  cy.get(".movie").first().contains("19:00").click();
-  const seats = require("../fixtures/seats.json");
-  seats.forEach((seat) => {
-    cy.get(
-      `.buying-scheme__wrapper > :nth-child(${seat.row}) > :nth-child(${seat.seat})`
-    ).click();
-  });
-  cy.get(".acceptin-button").click();
-  cy.contains("Вы выбрали билеты:").should("be.visible");
-  });
+  cy.get('div.conf-step__seances > div:nth-child(4) > div > div > p.conf-step__seances-movie-title').
+   then(($el) => $el.textContent).should('have.text','Логан');
+  cy.get('div.conf-step__seances > div:nth-child(4) > div > div > p.conf-step__seances-movie-title').invoke('text').then((text) => {
+    //expect(text.equal('Логан')); 
+    cy.visit("qamid.tmweb.ru");
+    cy.get('h2.movie__title').first().should('have.text', text); 
+    cy.get(".movie").first().contains("19:00").click();
+    const seats = require("../fixtures/seats.json");
+    seats.forEach((seat) => {
+      cy.get(
+        `.buying-scheme__wrapper > :nth-child(${seat.row}) > :nth-child(${seat.seat})`
+      ).click();
+    });
+    cy.get(".acceptin-button").click();
+    cy.contains("Вы выбрали билеты:").should("be.visible");
+ });
+ });
   
