@@ -23,7 +23,7 @@ Given("user is on start page",{timeout: 10000}, async function () {
 });
 
 When("user click on need hall",{timeout: 10000}, async function () {
-  return await clickElement(this.page, "[data-seance-id='129']");
+  return await clickElement(this.page, "section:nth-child(1) > div:nth-child(2) > ul > li > a");
 });
 
 When("user set place in hall",{timeout: 10000}, async function () {
@@ -56,7 +56,7 @@ When("user click on needs date",{timeout: 10000}, async function () {
 });
 
 When("user choose need hall",{timeout: 10000}, async function () {
-  return await clickElement(this.page, "[data-seance-id='94']");
+  return await clickElement(this.page, "section:nth-child(2) > div:nth-child(2) > ul > li > a");
 });
 
 When("user set place in VIP hall",{timeout: 10000}, async function () {
