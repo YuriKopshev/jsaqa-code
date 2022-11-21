@@ -46,6 +46,15 @@ it("Book ticket film name from admin",()=>{
    then(($el) => $el.textContent).should('have.text','Логан');
   cy.get('div.conf-step__seances > div:nth-child(4) > div > div > p.conf-step__seances-movie-title').invoke('text').then((text) => {
     //expect(text.equal('Логан')); 
+    // ёще вариант
+    // it.only('aaa', function() {
+    //   cy.visit('http://qamid.tmweb.ru/');
+  
+    //   cy.get('.movie__title').first().invoke('text').as('title');
+    //   cy.get('@title').then((title) => {
+    //     cy.log(title)
+    //   })
+    // })
     cy.visit("qamid.tmweb.ru");
     cy.get('h2.movie__title').first().should('have.text', text); 
     cy.get(".movie").first().contains("19:00").click();
